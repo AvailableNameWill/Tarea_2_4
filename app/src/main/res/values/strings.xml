@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Tarea_2_4</string>
+    <string name="name"> Carlos Wilberto Rodriguez Ruiz </string>
+    <string name="numC"> 201910020179 </string>
+    <string name="aFoto"> Tomar Firma </string>
+    <string name="vFoto"> Ver firmas </string>
+    <string name="vtDesc"> Firma digital </string>
+    <string name="btnSavetext"> Salvar </string>
+</resources>

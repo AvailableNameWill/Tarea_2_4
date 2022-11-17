@@ -4,6 +4,7 @@
     <string name="numC"> 201910020179 </string>
     <string name="aFoto"> Tomar Firma </string>
     <string name="vFoto"> Ver firmas </string>
-    <string name="vtDesc"> Firma digital </string>
+    <string name="fd"> Firma digital </string>
     <string name="btnSavetext"> Salvar </string>
+    <string name="desc"> Descripcion </string>
 </resources>

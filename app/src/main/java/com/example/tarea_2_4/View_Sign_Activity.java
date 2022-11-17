@@ -1,6 +1,7 @@
 package com.example.tarea_2_4;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.os.Bundle;
 

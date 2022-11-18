@@ -30,6 +30,11 @@ public class Conection extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public void delete(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("delete from " + Transacs.tblName);
+    }
+
     public boolean saveData(String descripcion, byte[] img){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();

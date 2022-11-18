@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -22,7 +23,10 @@ import com.example.tarea_2_4.Clases.Transacs;
 import com.example.tarea_2_4.Config.Conection;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.sql.Connection;
+import java.util.Calendar;
 
 public class Take_Sign_Activity extends AppCompatActivity {
 
@@ -34,6 +38,7 @@ public class Take_Sign_Activity extends AppCompatActivity {
     private Bitmap bit;
     private Canvas canvas;
     private Paint paint;
+    private String path;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,14 +48,32 @@ public class Take_Sign_Activity extends AppCompatActivity {
         permisos();
         getObj();
 
+        //Conection con1 = new Conection(this, Transacs.dbName, null, 1);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(!isEmpty()){
                     saveToDB();
+
+                    //con1.delete();
                 }
             }
         });
+    }
+
+    private void save(){
+        File file = new File(this.getExternalFilesDir(Environment.DIRECTORY_PICTURES), Calendar.getInstance().getTime().toString() + ".jpg");
+
+        try{
+            FileOutputStream fos = new FileOutputStream(file);
+            bit.compress(Bitmap.CompressFormat.JPEG, 25, fos);
+            fos.flush();
+            fos.close();
+            path = file.getAbsolutePath().toString();
+            System.out.println(path);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private void saveToDB(){
@@ -58,13 +81,12 @@ public class Take_Sign_Activity extends AppCompatActivity {
             Conection con = new Conection(this, Transacs.dbName, null, 1);
             String desc = txtDesc.getText().toString();
             ByteArrayOutputStream ba = new ByteArrayOutputStream();
-            Bitmap bImg = ((BitmapDrawable)iv.getDrawable()).getBitmap();
-            bImg.compress(Bitmap.CompressFormat.JPEG, 25, ba);
+            save();
+            //Bitmap bImg = ((BitmapDrawable)iv.getDrawable()).getBitmap();
+            bit.compress(Bitmap.CompressFormat.JPEG, 25, ba);
             byte[] sImg = ba.toByteArray();
 
             boolean insert = con.saveData(desc, sImg);
-
-            System.out.println(getExternalCacheDir());
 
             if(insert) Toast.makeText(this, "Datos guardados correctamente", Toast.LENGTH_SHORT).show();
             else Toast.makeText(this, "!!Error", Toast.LENGTH_SHORT).show();
@@ -81,7 +103,7 @@ public class Take_Sign_Activity extends AppCompatActivity {
 
             canvas = new Canvas(bit);
 
-            paint.setColor(Color.BLACK);
+            paint.setColor(Color.RED);
             paint.setAntiAlias(true);
             paint.setStyle(Paint.Style.STROKE);
             paint.setStrokeWidth(8);

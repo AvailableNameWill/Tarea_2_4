@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), View_Sign_Activity.class);
+                //Intent intent = new Intent(getApplicationContext(), test.class);
                 startActivity(intent);
             }
         });
